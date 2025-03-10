@@ -1,0 +1,9 @@
+2
+S -> AB;A -> a;B -> BC| b;C -> c
+PQ:a QR:b RT:c
+P
+T
+S -> AB;A -> a;B -> BC| b;C -> c
+PQ:a QR:c RT:b
+P
+T
