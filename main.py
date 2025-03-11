@@ -1,8 +1,30 @@
 from helpers import CFG
 from helpers import Graph
 
+# helper function for get_strings()
+def get_strings_helper(graph, start, end, cstr, strings, visited):
+    if start == end:
+        strings.append(cstr)
+        return
+    if start not in graph.adjacency_list:
+        return
+    visited.add(start)
+    for (tgt, lbl) in graph.adjacency_list[start]:
+        if tgt in visited:
+            continue
+        get_strings_helper(graph, tgt, end, cstr+lbl, strings, visited)
+    visited.remove(start)
+
+# return strings which lie along any path from a starting to ending vertex
+def get_strings(graph, start, end):
+    strings = []
+    get_strings_helper(graph, start, end, "", strings, set())
+    return strings
+        
 def check_reachability(cfg, graph, start_vertex, end_vertex):
     # TODO: Implement the function to check reachability
+    graph_words = get_strings(graph, start_vertex, end_vertex)
+    print(graph_words)
     return False
 
 def read_input(file_path):
