@@ -24,12 +24,12 @@ def cyk_algorithm(grammar: dict, word: str) -> bool:
     terminals = []
 
     # Extract non-terminal and terminal rules for conveniencd
-    for variable, productions in grammar.items():
-        for production in productions:
-            if all(char.isupper() for char in production[0]):
-                non_terminals.append([variable, production[0]])
+    for var, productions in grammar.items():
+        for prod in productions:
+            if all(char.isupper() for char in prod[0]):
+                non_terminals.append([var, prod[0]])
             else:
-                terminals.append([variable, production[0]])
+                terminals.append([var, prod[0]])
 
     n = len(word)
     non_term_vars = [nterm[0] for nterm in non_terminals]
@@ -47,8 +47,8 @@ def cyk_algorithm(grammar: dict, word: str) -> bool:
     # Fill the rest of the table
     for length in range(1, n):
         for start in range(n - length):
-            for partition in range(length):
-                combined = combine_sets(table[partition][start], table[length - partition - 1][start + partition + 1])
+            for partn in range(length):
+                combined = combine_sets(table[partn][start], table[length - partn - 1][start + partn + 1])
                 for item in combined:
                     if item in non_term_rules:
                         table[length][start].add(non_term_vars[non_term_rules.index(item)])
